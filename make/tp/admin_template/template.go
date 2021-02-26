@@ -238,6 +238,14 @@ const Update = `<form class="layui-form alignment layui-form-pane" action="{:url
             </div>
         </div>
 
+		<!-- 富文本的例子 -->		
+		 <div class="layui-form-item">
+            <label class="layui-form-label">新闻内容</label>
+            <div class="layui-input-block">
+                <div id="rich_example"></div>
+                <textarea style="display: none;" id="content_example" name="content_example">{$item['content_example']}</textarea>
+            </div>
+        </div>		
 
        <div class="pop-bottom-bar">
             <button type="submit" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="formSubmit" hisi-data="{pop: true, refresh: true}">提交保存</button>
@@ -266,6 +274,45 @@ const Update = `<form class="layui-form alignment layui-form-pane" action="{:url
             }
         });
     });
+</script>
+
+<!--富文本绑定的代码 示例 无用则删除-->
+<script src="__PUBLIC_JS__/js/wangEditor/wangEditor.js"></script>
+<script type="text/javascript">
+    // 初始化富文本
+    function initRichText() {
+        const E = window.wangEditor
+        const editor = new E('#rich_example')
+        let $ = layui.jquery;
+        // 自定义上传文件
+        editor.config.customUploadImg = function (resultFiles, insertImgFn) {
+            for (let index in resultFiles) {
+                let formData = new FormData();                      // 创建一个form类型的数据
+                formData.append('file',resultFiles[index]);
+                $.ajax({
+                    type: "POST",
+                    url: "{:url('/system/file/put')}",
+                    processData: false, // 将数据转换成对象，不对数据做处理，故 processData: false
+                    contentType: false,   // 不设置数据类型
+                    xhrFields: {                // 这样在请求的时候会自动将浏览器中的cookie发送给后台
+                        withCredentials: true
+                    },
+                    data: formData,
+                    success: function (res) {
+                        insertImgFn(res.data.url)
+                    }, error: function (data) {
+                        layer.msg("网络错误", {time: 1500});
+                    }
+                })
+            }
+        }
+		let content = $('#content_example');
+        editor.config.onchange = function (html) {
+            content.val(html)
+        }
+        editor.create()
+        editor.txt.html(content.val())
+    }
 </script>
 `
 
