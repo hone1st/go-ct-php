@@ -242,8 +242,8 @@ const Update = `<form class="layui-form alignment layui-form-pane" action="{:url
 		 <div class="layui-form-item">
             <label class="layui-form-label">新闻内容</label>
             <div class="layui-input-block">
-                <div id="rich_example"></div>
-                <textarea style="display: none;" id="content_example" name="content_example">{$item['content_example']}</textarea>
+                <div id="rich_example">{$item['content_example']|raw}</div>
+                <textarea style="display: none;" id="content_example" name="content_example">{$item['content_example']|raw}</textarea>
             </div>
         </div>		
 
@@ -359,8 +359,8 @@ const Create = `<form class="layui-form alignment layui-form-pane" action="{:url
 		 <div class="layui-form-item">
             <label class="layui-form-label">富文本的例子</label>
             <div class="layui-input-block">
-                <div id="rich_example"></div>
-                <textarea style="display: none;" id="content_example" name="content_example">{$item['content_example']}</textarea>
+                <div id="rich_example">{$content_example|raw}</div>
+                <textarea style="display: none;" id="content_example" name="content_example">{$content_example}</textarea>
             </div>
         </div>		
 

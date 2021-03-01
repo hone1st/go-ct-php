@@ -61,8 +61,8 @@ class {$model} extends AdminBaseV1 {
             }
              $this->error('添加失败');
         }
-		$item['content_example'] = '<p>123123123131</p>';
 		$this->assign('radio_example', [0 => '男', 1=> '女', 2=> '性别不详']);
+		$this->assign('content_example', '<p>123123123131</p>');
 		$this->assign('select_example', [0 => '男', 1=> '女', 2=> '性别不详']);
 		return $this->fetch();
     }
