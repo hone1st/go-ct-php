@@ -357,7 +357,7 @@ const Create = `<form class="layui-form alignment layui-form-pane" action="{:url
 
 		<!-- 富文本的例子 -->		
 		 <div class="layui-form-item">
-            <label class="layui-form-label">新闻内容</label>
+            <label class="layui-form-label">富文本的例子</label>
             <div class="layui-input-block">
                 <div id="rich_example"></div>
                 <textarea style="display: none;" id="content_example" name="content_example">{$item['content_example']}</textarea>
@@ -365,9 +365,7 @@ const Create = `<form class="layui-form alignment layui-form-pane" action="{:url
         </div>		
 
 		<div class="pop-bottom-bar">
-            <button type="submit" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="formSubmit"
-                    lay-data="{pop: true, refresh: true}">添加数据
-            </button>
+            <button type="submit" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="formSubmit" hisi-data="{pop: true, refresh: true}">添加</button>
             <a href="javascript:parent.layui.layer.closeAll();" class="layui-btn layui-btn-primary ml10">取消</a>
         </div>
     </div>
