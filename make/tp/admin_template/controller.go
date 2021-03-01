@@ -57,9 +57,9 @@ class {$model} extends AdminBaseV1 {
     public function create() {
         if($this->request->isPost()) {
             if($this->{$lModel}Service->create($this->request->post())) {
-				return $this->success('添加成功');
+				 $this->success('添加成功');
             }
-            return $this->error('添加失败');
+             $this->error('添加失败');
         }
 		$item['content_example'] = '<p>123123123131</p>';
 		$this->assign('radio_example', [0 => '男', 1=> '女', 2=> '性别不详']);
@@ -83,9 +83,9 @@ class {$model} extends AdminBaseV1 {
             return $this->fetch();
         } elseif($this->request->post()) {
             if ($this->{$lModel}Service->update($id, $this->request->post())) {
-                 return $this->success('修改成功');
+                  $this->success('修改成功');
             }
-            return $this->error('修改失败');
+             $this->error('修改失败');
         }
     }
 }`
