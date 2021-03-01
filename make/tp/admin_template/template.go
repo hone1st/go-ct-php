@@ -365,7 +365,7 @@ const Create = `<form class="layui-form alignment layui-form-pane" action="{:url
         </div>		
 
 		<div class="pop-bottom-bar">
-            <button type="submit" class="layui-btn layui-btn-normal" lay-submit=""
+            <button type="submit" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="formSubmit"
                     lay-data="{pop: true, refresh: true}">添加数据
             </button>
             <a href="javascript:parent.layui.layer.closeAll();" class="layui-btn layui-btn-primary ml10">取消</a>
