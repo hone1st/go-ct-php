@@ -10,6 +10,14 @@ const Index = `<!-- 表格上方的搜索区域 -->
             <input class="layui-input" name="id"  placeholder="id">
         </div>
 		<div class="layui-input-inline">
+           <select name="select_example">
+				<option value="-1">全部</option>
+				{foreach $select_cn as $key=>$vo }
+					<option value="{$key}">{$vo}</option>
+				{/foreach}
+			</select>
+        </div>
+		<div class="layui-input-inline">
 			<div class="layui-input-inline">
 				<a class="layui-btn" id="search" data-type="search">搜索</a>
 				<a class="layui-btn" id="reset" data-type="reset"> 重置</a>
@@ -45,7 +53,7 @@ const Index = `<!-- 表格上方的搜索区域 -->
         let table = layui.table, $ = layui.jquery,form = layui.form;
 
 		// 初始化搜索条件
-		let reset = form.val('search_data')
+		let reset = {id: 0, select_example: -1}
         table.render({
             elem: '#table_data'
             , url: '{:url()}' //数据接口

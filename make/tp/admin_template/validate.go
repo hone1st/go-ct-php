@@ -13,8 +13,9 @@ namespace app\{$module}\validate;
 
 
 use think\Validate;
+use app\common\validate\PageValidate;
 
-class {$model} extends Validate {
+class {$model} extends PageValidate {
 
     /**@inheritdoc */
     protected $rule = [
