@@ -43,11 +43,15 @@ class {$model} extends AdminBaseV1 {
     public function index() {
         // 渲染数据
         if (!$this->request->isAjax()) {
+			// 下拉选择例子
+			$this->assign('select_cn', [0 => '男', 1=> '女', 2=> '性别不详']);
             return $this->fetch();
         } else {
             $page  = $this->request->param('page');
             $limit = $this->request->param('limit');
             $id    = $this->request->param('id/d', 0);
+			// 下拉选择例子
+            $selectExample    = $this->request->param('select_example/d', 0);
             return ShowView::data($this->{$lModel}Service->index($id, $page, $limit))->send();
         }
     }
