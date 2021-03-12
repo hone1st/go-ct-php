@@ -19,7 +19,7 @@ class {$model} extends BaseService {
         if($id != 0) {
 			array_push($whereMap, ['id', '=', $id]);
         }
-        $count = {$model}Model::where($whereMap)->count();
+        $count = (int){$model}Model::where($whereMap)->count();
         $data  = {$model}Model::order('id desc')
 				->where($whereMap)
 				->page($page, $limit)
