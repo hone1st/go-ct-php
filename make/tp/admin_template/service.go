@@ -28,7 +28,7 @@ class {$model} extends BaseService {
     }
 
     public function update(int $id, array $data) {
-        return {$model}Model::where(['id' => $id])->update($data);
+        return {$model}Model::where(['id' => $id])->allowField(true)->update($data);
     }
 
     public function create(array $data) {
