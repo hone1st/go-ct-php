@@ -28,10 +28,6 @@ const Index = `<!-- 表格上方的搜索区域 -->
 <!--表格数据的渲染-->
 <table id="table_data" lay-filter="table_data"></table>
 {include file="system@block/layui" /}
-<!--表格渲染某个字段图片-->
-<script type="text/html" id="table_row_avatar">
-    <img style="width: 80px;height: 80px;" src="{{d.avatar}}"/>
-</script>
 <!--表格的行尾的按钮-->
 <script type="text/html" title="" id="table_row_btn">
 	 <a href="{:url('update')}?id={{d.id}}" class="layui-btn layui-btn-xs layui-btn-normal hisi-iframe"
@@ -116,10 +112,11 @@ const Index = `<!-- 表格上方的搜索区域 -->
                 -->
 <!--图片模板-->
 <script type="text/html" id="imagesTpl">
-	<!--    数据结构 images: [url1,url2,url3]-->
-    {{#  layui.each(d.images, function(index, item){ }}
-	<img onclick="previewImg('{{item}}')" src="{{ item }}" style="height:40px;width: 40px"/>
-    {{#  }); }}
+    {{#  if(d.cover != null  && d.cover != ''){ }}
+    <div class="ssy_img_parent">
+        <img src="{{ d.cover }}" width="40" class="ssy_img" height="40">
+    </div>
+    {{#  } }}
 </script>
 <!--视频模板-->
 <script type="text/html" id="videoTpl">
@@ -131,41 +128,6 @@ const Index = `<!-- 表格上方的搜索区域 -->
     {{#  } }}
 </script>
 <script>
-     // 图片原始大小
-    function previewImg(src) {
-        //弹出层
-        layer.open({
-            type: 2,
-            anim: 5,
-            offset: 'auto',
-            maxmin : true,
-            area: ['800px', '800px'],
-            shadeClose:true,
-            content: src //注意，如果str是object，那么需要字符拼接。
-        });
-    }
-
-    // 图片固定大小
-    function previewImgFixed(obj) {
-        var img = new Image();
-        img.src = obj.src;
-        var imgHtml = "<img src='" + obj.src + "' width='500px' height='500px'/>";
-        //弹出层
-        layer.open({
-            type: 1,
-            shade: 0.8,
-            offset: 'auto',
-            area: [500 + 'px', 550 + 'px'],
-            shadeClose: true,
-            scrollbar: false,
-            title: "图片预览", //不显示标题
-            content: imgHtml, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
-            cancel: function () {
-                //layer.msg('捕获就是从页面已经存在的元素上，包裹layer的结构', { time: 5000, icon: 6 });
-            }
-        });
-    }
-
     /**
      *  播放视频
      */
@@ -208,9 +170,9 @@ const Update = `<form class="layui-form alignment layui-form-pane" action="{:url
             <label class="layui-form-label">上传图片示例</label>
             <div class="layui-input-block">
                 <button type="button" class="layui-btn" id="img_btn">请选择头像</button>
-                <div class="layui-upload-list">
-                    <img class="layui-upload-img" width="100px" height="80px" id="img_show_example" />
-                </div>
+				 <div class="ssy_img_parent">
+						<img  width="40" class="ssy_img" height="40" id="img_show_example"/>
+				</div>
             </div>
 			<!-- 上传的图片的字段 -->
             <input type="hidden"  name="img_example" />
@@ -333,9 +295,9 @@ const Create = `<form class="layui-form alignment layui-form-pane" action="{:url
             <label class="layui-form-label">上传图片示例</label>
             <div class="layui-input-block">
                 <button type="button" class="layui-btn" id="img_btn">请选择头像</button>
-                <div class="layui-upload-list">
-                    <img class="layui-upload-img" width="100px" height="80px" id="img_show_example" />
-                </div>
+				 <div class="ssy_img_parent">
+						<img  width="40" class="ssy_img" height="40" id="img_show_example"/>
+				</div>
             </div>
 			<!-- 上传的图片的字段 -->
             <input type="hidden"  name="img_example" />
