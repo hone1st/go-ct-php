@@ -62,7 +62,7 @@ const Index = `<!-- 表格上方的搜索区域 -->
                 };
             }
 			,cellMinWidth: 100
-            , page: true //开启分页
+            // , page: true //开启分页
             , skin: 'row'
             , id: '{$uuid}'
             , even: true
