@@ -19,8 +19,8 @@ const Index = `<!-- 表格上方的搜索区域 -->
         </div>
 		<div class="layui-input-inline">
 			<div class="layui-input-inline">
-				<a class="layui-btn" id="search" data-type="search">搜索</a>
-				<a class="layui-btn" id="reset" data-type="reset"> 重置</a>
+				<a class="layui-btn layui-btn-normal" id="search" data-type="search">搜索</a>
+				<a class="layui-btn layui-btn-normal" id="reset" data-type="reset"> 重置</a>
 			</div>
 		</div>
 	</form>
