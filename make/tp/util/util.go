@@ -3,6 +3,8 @@ package util_tp
 import (
 	"database/sql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"gopkg.in/ini.v1"
 	"io/ioutil"
 	"log"
 	"os"
@@ -10,8 +12,6 @@ import (
 	"regexp"
 	"strings"
 	"unicode"
-
-	_ "github.com/go-sql-driver/mysql"
 )
 
 type Field struct {
@@ -124,6 +124,21 @@ func initDb(root string, namespaces []string) *DbResult {
 	if DbErr != nil {
 		log.Println("数据库连接失败！")
 		return nil
+	}
+	err := db.Ping()
+	if err != nil {
+		log.Println("数据库连接失败！正在尝试从根目录的.env获取配置")
+		// 从新获取host/username/password
+		fmt.Println(path.Join(root, ".env"))
+		cfg, err := ini.Load(path.Join(root, ".env"))
+		if err != nil {
+			log.Println(".env文件不存在", err)
+			os.Exit(0)
+		}
+		host = cfg.Section("DEV").Key("database_hostname").String()
+		username = cfg.Section("DEV").Key("database_username").String()
+		password = cfg.Section("DEV").Key("database_password").String()
+		db, _ = sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8", username, password, host, dbName))
 	}
 	return &DbResult{
 		Db:       db,
