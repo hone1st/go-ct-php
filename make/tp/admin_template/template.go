@@ -34,6 +34,13 @@ const Index = `<!-- 表格上方的搜索区域 -->
        hisi-data="{width: '800px', height: '800px'}"
        title="编辑数据">编辑数据</a>
 	<a href="{:url('del')}?id={{ d.id }}" class="layui-btn layui-btn-xs layui-btn-danger j-tr-del">删除数据</a>
+
+	<!--审核操作 无延迟刷新-->
+    <a href="{:url('pass')}?id={{ d.id }}" confirm="确定通过吗？" class="layui-btn layui-btn-xs layui-btn-normal hisi-ajax"  custom_refresh="true">通过</a>
+    <a href="{:url('noPass')}?id={{d.id}}" class="layui-btn layui-btn-xs layui-btn-normal hisi-iframe"
+       hisi-data="{width: '400px', height: '400px'}"
+       title="拒绝通过ID：【{{d.id}}】">拒绝</a>
+
 </script>
 <!--表格的嵌入的头部的工具栏-->
 <script type="text/html" id="table_top_tool">
@@ -64,7 +71,7 @@ const Index = `<!-- 表格上方的搜索区域 -->
 			,cellMinWidth: 100
             // , page: true //开启分页
             , skin: 'row'
-            , id: '{$uuid}'
+            , id: 'id'
             , even: true
             , limit: 20
             , text: {none: '暂无相关数据'}
@@ -80,7 +87,7 @@ const Index = `<!-- 表格上方的搜索区域 -->
             search: function () {
                 let search = form.val('search_data')
                 //执行重载
-                table.reload('{$uuid}', {
+                table.reload('id', {
                     url: '{:url()}',
                     page: {
                         curr: 1 //重新从第 1 页开始
@@ -158,6 +165,33 @@ const Index = `<!-- 表格上方的搜索区域 -->
             </div>
      </div>
 */
+
+const NoPass = `<form class="layui-form" action="{:url()}" method="post" id="editForm">
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">审核备注</label>
+    <div class="layui-input-inline">
+      <textarea class="layui-textarea field-audit_remark" name="reject_reason" style="width: 100%;" rows="3" cols="20"></textarea>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <input type="hidden" class="field-id" name="id" value="{$info['id']}">
+    </div>
+  </div>
+  <div class="pop-bottom-bar">
+    <button type="submit" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="formSubmit" hisi-data="{pop: true,custom_refresh: true}">提交保存</button>
+    <a href="{:url('index')}" class="layui-btn layui-btn-primary ml10"><i class="aicon ai-fanhui"></i>返回</a>
+  </div>
+</form>
+{include file="system@block/layui" /}
+<script>
+  layui.use(['form', 'func'], function() {
+    var $ = layui.jquery, form = layui.form;
+    layui.func.assign({:json_encode($formData)});
+    console.log({:json_encode($formData)})
+  });
+</script>`
 
 const Update = `<form class="layui-form alignment layui-form-pane" action="{:url('')}?id={$id}" method="post">
 <!--    隐藏的主键的id -->

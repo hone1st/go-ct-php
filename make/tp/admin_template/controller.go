@@ -39,7 +39,9 @@ class {$model} extends AdminBaseV1 {
     }
 
 
-    // 首页
+    /**
+     * 列表数据
+     */
     public function index() {
         // 渲染数据
         if (!$this->request->isAjax()) {
@@ -57,7 +59,9 @@ class {$model} extends AdminBaseV1 {
     }
 
 
-    // 新增
+    /**
+     * 更新数据
+     */
     public function create() {
         if($this->request->isPost()) {
             if($this->{$lModel}Service->create($this->request->post())) {
@@ -90,6 +94,45 @@ class {$model} extends AdminBaseV1 {
                   $this->success('修改成功');
             }
              $this->error('修改失败');
+        }
+    }
+
+	 /**
+     *  审核通过
+     */
+    public function pass()
+    {
+        if ($this->request->isAjax()) {
+            $id    = $this->request->request('id');
+            $login = session('admin_user');
+            $this->{$lModel}Service->pass($id, $login['uid']);
+            $this->success('审核成功!');
+        }
+    }
+	
+	/**
+	 * 审核不通过	
+	*/
+
+    public function noPass()
+    {
+        $id = $this->request->param('id/d', 0);
+        if ($this->request->isPost()) {
+            $data = $this->request->post();
+            if ($id == 0) {
+                $this->error('修改失败');
+            }
+            $login = session('admin_user');
+            if (!$this->{$lModel}Service->noPass($login['uid'], $data['reject_reason'], $id)) {
+                $this->error('修改失败');
+            }
+            $this->success('修改成功');
+
+        } else {
+            $info = {$model}Model::where(['id' => $id])->allowEmpty()->findOrEmpty();
+            $this->assign('info', $info);
+
+            return $this->fetch();
         }
     }
 }`

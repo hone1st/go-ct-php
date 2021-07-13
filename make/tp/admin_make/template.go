@@ -52,6 +52,12 @@ func (t Template) update(content []string) {
 	util_tp.WriteFile(path, fileContent)
 }
 
+func (t *Template) noPass() {
+	fileContent := admin_template.NoPass
+	path := util_tp.GetFilePath(t.Dir, "no_pass.html")
+	util_tp.WriteFile(path, fileContent)
+}
+
 func (t Template) create(content []string) {
 	fileContent := admin_template.Create
 	path := util_tp.GetFilePath(t.Dir, "create.html")
