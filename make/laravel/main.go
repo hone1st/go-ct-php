@@ -19,7 +19,7 @@ var (
 
 func argsParse() {
 	flag.StringVar(&db, "db", "", "指定数据库链接，默认是env的默认链接")
-	flag.StringVar(&g, "g", "", "执行的参数")
+	flag.StringVar(&g, "g", "", "执行的参数 mode/apizzat:namespace/(request/reponse)@table")
 	flag.Parse()
 }
 
