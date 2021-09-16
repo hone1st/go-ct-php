@@ -54,3 +54,25 @@ model表示表名字
 ## tp.exe model:app\user\model@User
 
 ```
+
+
+```laravel
+laravel生成的命令
+
+main.exe 命令大全
+
+-g 是生成文件的东西
+							   生成模型 命名空间  表名驼峰	
+	生成模型的例子: main.exe -g model:App\Models@Order 
+
+	生成apizzat的(request/response)字典  main.exe -g apizzat:request/response@Order
+
+-db 指定env的数据库的前缀
+
+	例如指定数据库生成模型
+									   生成模型 命名空间  表名驼峰	
+	生成模型的例子: main.exe -g model:App\Models@User  -db CRM_
+	生成apizzat的(request/response)字典  main.exe -g apizzat:request/response@Order -db CRM_
+	
+
+```
