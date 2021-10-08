@@ -44,7 +44,7 @@ func TableFieldsMap(db *DbResult, tableName string) (map[string]*Field, []*Field
 		return mp, fields, ""
 	}
 	res, err := db.Db.Query("select column_name,column_comment,data_type,character_maximum_length from "+
-		"information_schema.columns where table_schema =? and table_name = ? ; ", db.Config.database, db.Config.prefix+tableName)
+		"information_schema.columns where table_schema =? and table_name = ? order by ordinal_position asc; ", db.Config.database, db.Config.prefix+tableName)
 	if err != nil {
 		log.Println(err)
 	}
