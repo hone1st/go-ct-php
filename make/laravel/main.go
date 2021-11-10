@@ -19,7 +19,12 @@ var (
 
 func argsParse() {
 	flag.StringVar(&db, "db", "", "指定数据库链接，默认是env的默认链接")
-	flag.StringVar(&g, "g", "", "执行的参数 mode/apizzat:namespace/(request/reponse)@table")
+	flag.StringVar(&g, "g", "", `执行的参数 model/apizzat:namespace/(request/reponse)@table
+-g model:App\Models@User  生成模型
+-g controller:App\Http\Controllers@User  生成控制器
+-g repository:App\Repository@User  生成逻辑层
+-g apizzat:response@User  生成对象定义
+`)
 	flag.Parse()
 }
 
@@ -68,6 +73,27 @@ func do(what, namespace, name string) {
 			DbPrefix:  db,
 		}
 		break
+	case "controller":
+		make = &make2.Controller{
+			Name:       name,
+			Namespace:  namespace,
+			Root:       root,
+			DbPrefix:   db,
+			NameSpaces: namespaces,
+		}
+		break
+	case "repository":
+		make = &make2.Repository{
+			Name:       name,
+			Namespace:  namespace,
+			Root:       root,
+			DbPrefix:   db,
+			NameSpaces: namespaces,
+		}
+		break
+	default:
+		fmt.Println("暂不支持!")
+		os.Exit(0)
 	}
 	make.Make()
 }
