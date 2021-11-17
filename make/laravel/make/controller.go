@@ -14,10 +14,13 @@ type Controller struct {
 	Table      string
 	NameSpaces []string
 	DbPrefix   string
+
+	FilePath string
 }
 
 func (m *Controller) Make() {
 	filepath := util.GetFilePath(m.Root, m.Namespace, m.Name+"Controller.php")
+	m.FilePath = filepath
 	content := strings.ReplaceAll(template.Controller, "{$namespace}", m.Namespace)
 	content = strings.ReplaceAll(content, "{$name}", m.Name)
 	content = strings.ReplaceAll(content, "{$ucName}", util.CapOrLow(m.Name, false))
@@ -35,10 +38,11 @@ func (m *Controller) otherMake() {
 		routePath = util.GetFilePath(m.Root, "routes", last, name_+".php")
 	}
 	route := &Route{
-		Namespace:  m.Namespace,
-		PathName:   routePath,
-		Prefix:     name_,
-		Controller: m.Name,
+		Namespace:          m.Namespace,
+		PathName:           routePath,
+		Prefix:             name_,
+		Controller:         m.Name,
+		ControllerFilePath: m.FilePath,
 	}
 	route.Make()
 	reNameSpace := "App\\Repository"

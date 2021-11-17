@@ -17,4 +17,5 @@ Route::group([
 ], function () {
 	// 获取列表数据
     Route::get('getList', [{$controller}Controller::class, 'getList']);
+
 });`

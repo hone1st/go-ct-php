@@ -19,7 +19,7 @@ var (
 
 func argsParse() {
 	flag.StringVar(&db, "db", "", "指定数据库链接，默认是env的默认链接")
-	flag.StringVar(&g, "g", "", `执行的参数 model/apizzat:namespace/(request/reponse)@table
+	flag.StringVar(&g, "g", "", `执行的参数 model/apizzat:namespace/(request/response)@table
 -g model:App\Models@User  生成模型
 -g controller:App\Http\Controllers@User  生成控制器
 -g repository:App\Repository@User  生成逻辑层
