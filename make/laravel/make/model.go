@@ -32,12 +32,12 @@ func (m *Model) Make() {
 		log.Fatal(error.Error())
 		os.Exit(1)
 	}
+	filepath := util.GetFilePath(m.Root, m.Namespace, m.Name+".php")
 	m.fieldsMap, m.fields, m.Comment = util.TableFieldsMap(db, tableName)
 	rules := m.fieldsRule()
 	casts := m.fieldsTrans()
-	fillable := m.fillable()
+	fillable := m.fillable(filepath)
 	property := m.property()
-	filepath := util.GetFilePath(m.Root, m.Namespace, m.Name+".php")
 
 	content := strings.ReplaceAll(template.Model, "{$namespace}", m.Namespace)
 	content = strings.ReplaceAll(content, "{$model}", m.Name)
@@ -63,9 +63,9 @@ func (m *Model) property() string {
 		field := m.fields[i]
 		field.ColumnComment = strings.ReplaceAll(field.ColumnComment, "\r\n", "")
 		if m.fields[i].DataType == "datetime" {
-			str = str + fmt.Sprintf(" * @property %s $%s %s\n", "string", field.ColumnName, field.ColumnComment)
+			str = str + fmt.Sprintf(" * @property %s %s %s\n", "string", field.ColumnName, field.ColumnComment)
 		} else {
-			str = str + fmt.Sprintf(" * @property %s $%s %s\n", field.DataType, field.ColumnName, field.ColumnComment)
+			str = str + fmt.Sprintf(" * @property %s %s %s\n", field.DataType, field.ColumnName, field.ColumnComment)
 		}
 	}
 	if str == "/**\n" {
@@ -74,12 +74,28 @@ func (m *Model) property() string {
 	return str + " */"
 }
 
-func (m *Model) fillable() string {
+func (m *Model) fillable(filepath string) string {
 	fields := make([]string, 0)
-	for field, _ := range m.fieldsMap {
-		fields = append(fields, fmt.Sprintf("        '%s',", field))
+	for i := 0; i < len(m.fields); i++ {
+		field := m.fields[i]
+		fields = append(fields, fmt.Sprintf("        '%s',", field.ColumnName))
 	}
-	return strings.Join(fields, "\r\n")
+	// 检测是否已经添加过了
+	data := strings.Join(fields, "\r\n")
+	bData, err := ioutil.ReadFile(filepath)
+	if err != nil {
+		return data
+	}
+	// 匹配$fillable
+	fliiRe, _ := regexp.Compile("public \\$fillable = \\[[',_a-zA-Z0-9\\r\\n\\s\\t]+];")
+	result := fliiRe.FindString(string(bData))
+	if result != "" {
+		result = strings.ReplaceAll(result, "public $fillable = [", "")
+		result = strings.ReplaceAll(result, "];", "")
+		repalceD := strings.ReplaceAll(string(bData), result, "\r\n"+data+"\r\n    ")
+		_ = ioutil.WriteFile(filepath, []byte(repalceD), 0777)
+	}
+	return data
 }
 
 func (m *Model) fieldsRule() string {
