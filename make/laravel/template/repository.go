@@ -11,14 +11,31 @@ namespace {$namespace};
 class {$name}Repository 
 {
 	
-    /**
+	/**
      * @param array $params
-     * @return array|object[]
      */
     public function getList(array $params)
     {
-        // do somethings
-        return [];
+        return {$name}::query()->paginate($params['page_size'] ?? 15);
+    }
+
+    public function edit(array $input)
+    {
+        return {$name}::query()->where('id', $input['{$name_id}'])->update([
+			{$fields_map}
+        ]);
+    }
+
+    public function delete(array $input)
+    {
+        return {$name}::query()->where('id', $input['{$name_id}'])->delete();
+    }
+
+    public function add(array $input)
+    {
+        return {$name}::query()->create([
+            {$fields_map}
+        ]);
     }
 
 }`

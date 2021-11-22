@@ -34,5 +34,35 @@ class {$name}Controller extends BaseController
         $result = $this->{$ucName}Repository->getList($request->input());
 		return $this->success($result);
     }
+
+    /**
+     * 添加
+     * @param Request $request
+     */
+    public function add(Request $request)
+    {
+        $result = $this->{$ucName}Repository->add($request->input());
+        return $this->success($result);
+    }
+
+    /**
+     * 编辑
+     * @param Request $request
+     */
+    public function edit(Request $request)
+    {
+        $result = $this->{$ucName}Repository->edit($request->input());
+        return $this->success($result);
+    }
+
+    /**
+     * 删除
+     * @param Request $request
+     */
+    public function delete(Request $request)
+    {
+        $result = $this->{$ucName}Repository->delete($request->input());
+        return $this->success($result);
+    }
 }
 `
