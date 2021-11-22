@@ -63,9 +63,17 @@ main.exe 命令大全
 
 -g 是生成文件的东西
 							   生成模型 命名空间  表名驼峰	
-	生成模型的例子: main.exe -g model:App\Models@Order 
+	生成模型的例子:
+	    支持fillable自动识别增量
+	    支持类注释自动增量添加 
+	    laravel.exe -g model:App\Models@Order 
 
-	生成apizzat的(request/response)字典  main.exe -g apizzat:request/response@Order
+	生成apizzat的(request/response)字典  laravel.exe -g apizzat:request/response@Order
+	
+	
+	生成controller+respsitory+route
+	    支持route自动识别增量 
+	    laravel.exe -g  controller:App\Http\Controllers\Presale@OrderReceiveFeeLog 
 
 -db 指定env的数据库的前缀
 
