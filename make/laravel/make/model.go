@@ -46,6 +46,11 @@ func (m *Model) Make() {
 	content = strings.ReplaceAll(content, "{$fields}", fillable)
 	content = strings.ReplaceAll(content, "{$fieldsTrans}", casts)
 	content = strings.ReplaceAll(content, "{$fieldsRule}", rules)
+	connect := "mysql"
+	if m.DbPrefix != "" {
+		connect = strings.ToLower(m.DbPrefix) + connect
+	}
+	content = strings.ReplaceAll(content, "{$connect}", connect)
 	if !util_tp.WriteFile(filepath, content) && property != "" {
 		re := regexp.MustCompile(fmt.Sprintf("/\\*\\*[^`]*?class %s", m.Name))
 		ori, _ := ioutil.ReadFile(filepath)
