@@ -40,7 +40,7 @@ func (m *Controller) otherMake() {
 	route := &Route{
 		Namespace:          m.Namespace,
 		PathName:           routePath,
-		Prefix:             name_,
+		Prefix:             util.Camel2Case(m.Name, '-'),
 		Controller:         m.Name,
 		ControllerFilePath: m.FilePath,
 	}

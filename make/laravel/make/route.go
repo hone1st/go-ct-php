@@ -7,6 +7,7 @@ import (
 	"regexp"
 	"strings"
 	"yii/make/laravel/template"
+	"yii/make/laravel/util"
 	util_tp "yii/make/tp/util"
 )
 
@@ -46,7 +47,7 @@ func (m *Route) update() {
 		if len(existRe.FindAllString(exist, -1)) > 0 {
 			continue
 		}
-		addRoute := fmt.Sprintf("    Route::get('%s', [%s]);", routeResult[i], check)
+		addRoute := fmt.Sprintf("    Route::get('%s', [%s]);", util.Camel2Case(routeResult[i], '-'), check)
 		log.Println("即将更新路由新增：", addRoute)
 		writeArr = append(writeArr, addRoute)
 	}
