@@ -36,6 +36,16 @@ class {$name}Controller extends BaseController
     }
 
     /**
+     * 详情
+     * @param Request $request
+     */
+    public function detail(Request $request)
+    {
+        $result = $this->{$ucName}Repository->detail($request->input());
+        return $this->success($result);
+    }
+
+    /**
      * 添加
      * @param Request $request
      */
