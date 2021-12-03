@@ -24,6 +24,7 @@ func argsParse() {
 -g controller:App\Http\Controllers@User  生成控制器
 -g repository:App\Repository@User  生成逻辑层
 -g apizzat:response@User  生成对象定义
+-g validation:App\Http\Controllers\Backend@Question  指定某个控制器的文件生成对于的验证层的代码
 `)
 	flag.Parse()
 }
@@ -84,6 +85,15 @@ func do(what, namespace, name string) {
 		break
 	case "repository":
 		make = &make2.Repository{
+			Name:       name,
+			Namespace:  namespace,
+			Root:       root,
+			DbPrefix:   db,
+			NameSpaces: namespaces,
+		}
+		break
+	case "validation":
+		make = &make2.Validation{
 			Name:       name,
 			Namespace:  namespace,
 			Root:       root,
