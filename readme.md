@@ -19,6 +19,7 @@ yii2框架的代码生成
 # go build . 
 生成可执行文件
 ```
+
 ```TXT
  * gii model:portal\modules\v2\models@ApiTest 生成model
  * gii controller:portal\modules\v2\controllers@ApiTest 生成controller
@@ -26,7 +27,6 @@ yii2框架的代码生成
  * gii form:portal\modules\v2\form@ApiTest 生成form
  * gii module:portal\modules\v2\modules@test 自动生成portal\modules\v2\modules\test\Module.php 
 ```
-
 
 ```
 tp5.1框架生成代码
@@ -54,7 +54,6 @@ model表示表名字
 ## tp.exe model:app\user\model@User
 
 ```
-
 
 ```laravel
 laravel生成的命令

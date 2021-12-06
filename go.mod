@@ -1,4 +1,4 @@
-module yii
+module honelst
 
 go 1.14
 
