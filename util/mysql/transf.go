@@ -26,7 +26,10 @@ func typeToPhp(t string) string {
 		return "int"
 	case "decimal":
 		return "float"
+	case "json":
+		return "string|array"
 	case "datetime":
+	case "timestamp":
 		return "datetime"
 	}
 	return "string"
