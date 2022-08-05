@@ -23,7 +23,7 @@ class {$name}Repository
 
 	/**
      * 详情
-     * @param array $params
+     * @param array $input
      */
     public function detail(array $input)
     {
@@ -33,7 +33,7 @@ class {$name}Repository
 
 	/**
      * 编辑
-     * @param array $params
+     * @param array $input
      */
     public function edit(array $input)
     {
@@ -44,7 +44,7 @@ class {$name}Repository
 
 	/**
      * 删除
-     * @param array $params
+     * @param array $input
      */
     public function delete(array $input)
     {
@@ -53,7 +53,7 @@ class {$name}Repository
 
 	/**
 	 * 新增
-     * @param array $params
+     * @param array $input
      */
     public function add(array $input)
     {
