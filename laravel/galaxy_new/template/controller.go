@@ -8,11 +8,11 @@ const Controller = `<?php
 
 namespace {$namespace};
 
-use App\Http\Controller;
+use App\Domain\Common\Controllers\BaseController;
 use Illuminate\Http\Request;
 use {$namespace_parent}\Services\{$name}Services;
 
-class {$name}Controller extends Controller
+class {$name}Controller extends BaseController
 {
 	/**@var {$name}Services ${$ucName}Services*/
     protected ${$ucName}Services;
