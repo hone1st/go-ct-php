@@ -19,7 +19,7 @@ type Repository struct {
 
 func (m *Repository) Make() {
 	filepath := other.GetFilePath(m.Root, m.Namespace, m.Name+"Repository.php")
-	content := strings.ReplaceAll(template.Repository, "{$namespace}", other.CapOrLow(m.Namespace, true))
+	content := strings.ReplaceAll(template.Repository, "{$namespace}", m.Namespace)
 	content = strings.ReplaceAll(content, "{$name}", m.Name)
 	tableName := other.Camel2Case(m.Name, '_')
 	content = strings.ReplaceAll(content, "{$name_id}", tableName+"_id")

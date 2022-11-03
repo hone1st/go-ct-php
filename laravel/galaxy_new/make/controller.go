@@ -20,7 +20,7 @@ type Controller struct {
 func (m *Controller) Make() {
 	filepath := other.GetFilePath(m.Root, m.Namespace, m.Name+"Controller.php")
 	m.FilePath = filepath
-	content := strings.ReplaceAll(template.Controller, "{$namespace}", other.CapOrLow(m.Namespace, true))
+	content := strings.ReplaceAll(template.Controller, "{$namespace}", m.Namespace)
 	content = strings.ReplaceAll(content, "{$namespace_parent}", strings.Replace(m.Namespace, "\\Controllers", "", 1))
 	content = strings.ReplaceAll(content, "{$name}", m.Name)
 	content = strings.ReplaceAll(content, "{$ucName}", other.CapOrLow(m.Name, false))

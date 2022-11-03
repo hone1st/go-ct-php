@@ -40,7 +40,7 @@ func (v *Validation) Make() {
 		// 创建新文件
 		log.Printf("验证层文件已经不存在！即将创建文件：【%s】\r\n", validationPath)
 		tem := template.Validation
-		tem = strings.ReplaceAll(tem, "{$namespace}", other.CapOrLow(strings.ReplaceAll(v.Namespace, "Controllers", "Validations"), true))
+		tem = strings.ReplaceAll(tem, "{$namespace}", strings.ReplaceAll(v.Namespace, "Controllers", "Validations"))
 		tem = strings.ReplaceAll(tem, "{$name}", v.Name)
 		v.makeFile(make([]string, 0), apiResult, tem, validationPath)
 	} else {
