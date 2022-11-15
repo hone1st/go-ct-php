@@ -79,6 +79,10 @@ func (v *Validation) makeFile(validationResult, apiResult []string, ori, validat
             'messages' => [
 
             ],
+ 			'docs'     => [
+				// 文档示例 type:int|?int|string|?string|array|boolean require:false|true
+				'demo' => ['type' => 'int', 'comment' => '流转的池子', 'default' => 0, 'require' => false],
+			]
         ];
     }
 
@@ -102,6 +106,6 @@ func (v *Validation) makeFile(validationResult, apiResult []string, ori, validat
 		}
 		write = append(write, end)
 		ori = strings.ReplaceAll(ori, end, strings.Join(write, "\r\n"))
-		other.WriteFile(validationPath, ori)
+		ioutil.WriteFile(validationPath, []byte(ori), 0777)
 	}
 }

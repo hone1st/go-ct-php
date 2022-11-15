@@ -67,6 +67,15 @@ func Make(root string) {
 			NameSpaces: namespaces,
 		}).Make()
 		break
+	case "repository":
+		(&Repository{
+			Name:       name,
+			Namespace:  namespace,
+			Root:       root,
+			DbPrefix:   db,
+			NameSpaces: namespaces,
+		}).Make()
+		break
 	case "model":
 		(&Model{
 			Name:       name,

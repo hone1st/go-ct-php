@@ -20,8 +20,21 @@ class {$name}Repository
     {
         return {$name}::query()
 {$when}
-			->paginate($params['page_size'] ?? 15);
+            ->when(isset($params['page_size']) && !empty($params['page_size']), function ($query) use ($params) {
+                $query->limit($params['page_size']);
+            })->get();
     }
+
+	/**
+     * 列表自动分页
+     * @param array $params
+     */
+    public function getPaginate(array $params)
+    {
+        return {$name}::query()
+{$when}
+			->paginate($params['page_size'] ?? 15);
+    }	
 
 	/**
      * 详情
