@@ -81,6 +81,7 @@ func (v *Validation) makeFile(validationResult, apiResult []string, ori, validat
             ],
  			'docs'     => [
 				// 文档示例 type:int|?int|string|?string|array|boolean require:false|true
+				// 如果需要入参是一个数组聚合的数据例子：第一个参数，default为true代表是二维 'array'           => ['type' => 'array', 'comment' => '入参查看具体的数据', 'default' => true],   
 				'demo' => ['type' => 'int', 'comment' => '流转的池子', 'default' => 0, 'require' => false],
 			]
         ];

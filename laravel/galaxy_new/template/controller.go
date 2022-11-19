@@ -12,6 +12,9 @@ use App\Domain\Common\Controllers\BaseController;
 use Illuminate\Http\Request;
 use {$namespace_parent}\Services\{$name}Services;
 
+/**
+ * @desc 示例注释
+ */
 class {$name}Controller extends BaseController
 {
 	/**@var {$name}Services ${$ucName}Services*/
@@ -26,7 +29,7 @@ class {$name}Controller extends BaseController
     }
 	
     /**
-     * 获取列表数据
+     * @desc 获取列表数据
      * @param Request $request
      */
     public function getList(Request $request)
@@ -37,7 +40,7 @@ class {$name}Controller extends BaseController
     }
 
     /**
-     * 详情
+     * @desc 详情
      * @param Request $request
      */
     public function detail(Request $request)
@@ -48,7 +51,7 @@ class {$name}Controller extends BaseController
     }
 
     /**
-     * 添加
+     * @desc 添加
      * @param Request $request
      */
     public function add(Request $request)
@@ -59,7 +62,7 @@ class {$name}Controller extends BaseController
     }
 
     /**
-     * 编辑
+     * @desc 编辑
      * @param Request $request
      */
     public function edit(Request $request)
@@ -70,7 +73,7 @@ class {$name}Controller extends BaseController
     }
 
     /**
-     * 删除
+     * @desc 删除
      * @param Request $request
      */
     public function delete(Request $request)
