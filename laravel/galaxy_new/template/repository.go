@@ -11,7 +11,10 @@ namespace {$namespace};
 
 class {$name}Repository 
 {
-	
+
+/*
+{$fields_map}
+*/
 	/**
      * 列表
      * @param array $params
@@ -54,9 +57,7 @@ class {$name}Repository
      */
     public function edit(array $input)
     {
-        return {$name}::query()->where('id', $input['{$name_id}'])->update([
-			{$fields_map}
-        ]);
+        return {$name}::query()->where('id', $input['{$name_id}'])->update($input);
     }
 
 	/**
@@ -74,9 +75,7 @@ class {$name}Repository
      */
     public function add(array $input)
     {
-        return {$name}::query()->create([
-            {$fields_map}
-        ]);
+        return {$name}::query()->create($input);
     }
 
 }`

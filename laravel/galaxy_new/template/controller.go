@@ -40,6 +40,17 @@ class {$name}Controller extends BaseController
     }
 
     /**
+     * @desc 列表自动分页
+     * @param Request $request
+     */
+    public function getPaginate(Request $request)
+    {
+ 		$input  = $request->input();
+        $result = $this->{$ucName}Services->getPaginate($input);
+		return $this->success($result);
+    }
+
+    /**
      * @desc 详情
      * @param Request $request
      */

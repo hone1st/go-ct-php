@@ -26,12 +26,21 @@ class {$name}Services
     }
 	
     /**
-     * 获取列表数据
+     * 获取限制数量
      * @param array $params
      */
     public function getList(array $params)
     {
         return $this->{$ucName}Repository->getList($params);
+    }
+
+    /**
+     * 列表自动分页
+     * @param array $params
+     */
+    public function getPaginate(array $params)
+    {
+        return $this->{$ucName}Repository->getPaginate($params);
     }
 
     /**
