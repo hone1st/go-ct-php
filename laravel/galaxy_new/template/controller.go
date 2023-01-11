@@ -73,17 +73,6 @@ class {$name}Controller extends BaseController
     }
 
     /**
-     * @desc 编辑
-     * @param Request $request
-     */
-    public function edit(Request $request)
-    {
-        $input  = $request->input();
-        $result = $this->{$ucName}Services->edit($input);
-        return $this->success($result);
-    }
-
-    /**
      * @desc 删除
      * @param Request $request
      */
@@ -92,6 +81,26 @@ class {$name}Controller extends BaseController
         $input  = $request->input();
         $result = $this->{$ucName}Services->delete($input);
         return $this->success($result);
+    }
+
+	/**
+     * @desc 通过主键id更新
+     * @param Request $request
+     */
+    public function editById(Request $request)
+    {
+		$input  = $request->input();
+        return $this->{$ucName}Services->editById($input['{$name_id}'], $input);
+    }
+
+	/**
+     * @desc 通过主键id获取
+     * @param Request $request
+     */
+    public function getById(Request $request)
+    {
+		$input  = $request->input();
+        return $this->{$ucName}Services->getById($input['{$name_id}']);
     }
 }
 `

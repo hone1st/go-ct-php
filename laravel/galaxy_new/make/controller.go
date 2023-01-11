@@ -20,9 +20,11 @@ type Controller struct {
 func (m *Controller) Make() {
 	filepath := other.GetFilePath(m.Root, m.Namespace, m.Name+"Controller.php")
 	m.FilePath = filepath
+	tableName := other.Camel2Case(m.Name, '_')
 	content := strings.ReplaceAll(template.Controller, "{$namespace}", m.Namespace)
 	content = strings.ReplaceAll(content, "{$namespace_parent}", strings.Replace(m.Namespace, "\\Controllers", "", 1))
 	content = strings.ReplaceAll(content, "{$name}", m.Name)
+	content = strings.ReplaceAll(content, "{$name_id}", tableName+"_id")
 	content = strings.ReplaceAll(content, "{$ucName}", other.CapOrLow(m.Name, false))
 	other.WriteFile(filepath, content)
 	// 生成repository和route

@@ -11,10 +11,6 @@ namespace {$namespace};
 
 class {$name}Repository 
 {
-
-/*
-{$fields_map}
-*/
 	/**
      * 列表
      * @param array $params
@@ -52,12 +48,26 @@ class {$name}Repository
 
 
 	/**
-     * 编辑
+     * 通过主键id更新
+     * @param int $id
      * @param array $input
      */
-    public function edit(array $input)
+    public function editById(int $id, array $input)
     {
-        return {$name}::query()->where('id', $input['{$name_id}'])->update($input);
+		$detail = $this->getById($id);
+		if(is_null($detail)) {
+			ignore_exception('记录不存在!');
+		}
+        return $detail->update($input);
+    }
+
+	/**
+     * 通过主键id获取
+     * @param int $id
+     */
+    public function getById(int $id)
+    {
+		return {$name}::query()->where('id', $id)->first();
     }
 
 	/**

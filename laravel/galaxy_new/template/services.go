@@ -61,14 +61,6 @@ class {$name}Services
         return $this->{$ucName}Repository->add($input);
     }
 
-    /**
-     * 编辑
-     * @param array $input
-     */
-    public function edit(array $input)
-    {
-        return $this->{$ucName}Repository->edit($input);
-    }
 
     /**
      * 删除
@@ -77,6 +69,25 @@ class {$name}Services
     public function delete(array $input)
     {
         return $this->{$ucName}Repository->delete($input);
+    }
+
+	/**
+     * 通过主键id更新
+     * @param int $id
+     * @param array $input
+     */
+    public function editById(int $id, array $input)
+    {
+		return $this->{$ucName}Repository->editById($id, $input);
+    }
+
+	/**
+     * 通过主键id获取
+     * @param int $id
+     */
+    public function getById(int $id)
+    {
+		return $this->{$ucName}Repository->getById($id);
     }
 }
 `
