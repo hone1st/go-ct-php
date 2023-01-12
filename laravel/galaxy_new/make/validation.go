@@ -107,6 +107,9 @@ func (v *Validation) makeFile(validationResult, apiResult []string, ori, validat
 		}
 		write = append(write, end)
 		ori = strings.ReplaceAll(ori, end, strings.Join(write, "\r\n"))
-		ioutil.WriteFile(validationPath, []byte(ori), 0777)
+		err := ioutil.WriteFile(validationPath, []byte(ori), 0777)
+		if err != nil {
+			other.WriteFile(validationPath, ori)
+		}
 	}
 }

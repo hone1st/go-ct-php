@@ -39,7 +39,7 @@ func (m *Controller) otherMake() {
 	last = other.CapOrLow(last, false)
 	routePath := other.GetFilePath(m.Root, "routes", name_+".php")
 	if last != "" {
-		routePath = other.GetFilePath(m.Root, "routes", last, name_+".php")
+		routePath = other.GetFilePath(m.Root, "routes", other.Camel2Case(last, '-'), name_+".php")
 	}
 	route := &Route{
 		Namespace:          m.Namespace,
