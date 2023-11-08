@@ -3,8 +3,8 @@ package make
 import (
 	"honelst/laravel/galaxy_new/template"
 	"honelst/util/other"
-	"io/ioutil"
 	"log"
+	"os"
 	"regexp"
 	"strings"
 )
@@ -26,14 +26,14 @@ func (v *Validation) Make() {
 	// 检测文件是否存在
 	v.parentNamespace = strings.Replace(v.Namespace, "\\Validations", "", 1)
 	controllerFilePath := other.GetFilePath(v.Root, v.parentNamespace, "\\Controllers", v.Name+"Controller.php")
-	controllerData, err := ioutil.ReadFile(controllerFilePath)
+	controllerData, err := os.ReadFile(controllerFilePath)
 	if err != nil {
 		log.Fatalf("控制器文件不存在：【%s】 无法生成验证层文件", controllerFilePath)
 	}
 
 	validationPath := other.GetFilePath(v.Root, v.Namespace, v.Name+"Validation.php")
 	// 检测是否存在
-	file, err := ioutil.ReadFile(validationPath)
+	file, err := os.ReadFile(validationPath)
 	apiRegex := regexp.MustCompile("public function [a-z][a-zA-Z0-9_]+\\(")
 	apiResult := apiRegex.FindAllString(string(controllerData), -1)
 	if err != nil {
@@ -107,7 +107,7 @@ func (v *Validation) makeFile(validationResult, apiResult []string, ori, validat
 		}
 		write = append(write, end)
 		ori = strings.ReplaceAll(ori, end, strings.Join(write, "\r\n"))
-		err := ioutil.WriteFile(validationPath, []byte(ori), 0777)
+		err := os.WriteFile(validationPath, []byte(ori), 0777)
 		if err != nil {
 			other.WriteFile(validationPath, ori)
 		}

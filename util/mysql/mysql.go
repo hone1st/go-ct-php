@@ -6,6 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 	"gopkg.in/ini.v1"
+	"honelst/util/other"
 	"log"
 	"os"
 	"path"
@@ -39,6 +40,14 @@ func LoadConfigEnvLaravel(root, dbPrefix string) *MysqlConfig {
 	username := os.Getenv(dbPrefix + "DB_USERNAME")
 	password := os.Getenv(dbPrefix + "DB_PASSWORD")
 	prefix := os.Getenv(dbPrefix + "DB_PREFIX")
+
+	// 二次处理加密的数据
+	if deName := other.DecryptData(username); deName != "" {
+		username = deName
+	}
+	if dePassword := other.DecryptData(password); dePassword != "" {
+		password = dePassword
+	}
 
 	return &MysqlConfig{
 		host:     host,
