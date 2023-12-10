@@ -18,18 +18,15 @@ const Basic = "int,tinyint,bigint"
 
 func typeToPhp(t string) string {
 	switch t {
-	case "varchar":
-	case "char":
+	case "varchar", "char":
 		return "string"
-	case "int":
-	case "tinyint":
+	case "int", "tinyint":
 		return "int"
 	case "decimal":
 		return "float"
 	case "json":
-		return "string|array"
-	case "datetime":
-	case "timestamp":
+		return "array|null"
+	case "datetime", "timestamp":
 		return "datetime"
 	}
 	return "string"

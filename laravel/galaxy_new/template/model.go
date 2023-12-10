@@ -31,8 +31,12 @@ class {$model} extends Model
 
     protected $dates = ['deleted_at'];
 
+	protected $casts = [
+{$fieldsTrans}
+	];
+
     public $fillable = [
-        {$fields}
+{$fields}
     ];
 }
 `

@@ -128,11 +128,10 @@ func (m *Model) fieldsRule() string {
 func (m *Model) fieldsTrans() string {
 	casts := make([]string, 0)
 	for field, v := range m.fieldsMap {
-		if v.DataType == "int" {
-			casts = append(casts, fmt.Sprintf("        '%s' => '%s',", field, "integer"))
-		} else {
-			casts = append(casts, fmt.Sprintf("        '%s' => '%s',", field, v.DataType))
+		if v.DataType != "array|null" {
+			continue
 		}
+		casts = append(casts, fmt.Sprintf("        '%s' => '%s',", field, "json"))
 	}
 
 	return strings.Join(casts, "\r\n")
