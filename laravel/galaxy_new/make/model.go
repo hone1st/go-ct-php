@@ -52,7 +52,14 @@ func (m *Model) Make() {
 	if !other.WriteFile(filepath, content) && property != "" {
 		re := regexp.MustCompile(fmt.Sprintf("/\\*\\*[^`]*?class %s", m.Name))
 		ori, _ := ioutil.ReadFile(filepath)
-		dest := strings.ReplaceAll(string(ori), re.FindString(string(ori)), fmt.Sprintf("%s\nclass %s", property, m.Name))
+		// 针对property的注释固定匹配              * ----开头且匹配到class的数据name
+		oriRe := regexp.MustCompile("\\*\\n\\s\\*\\s---[^`]*?\\*/")
+		findString := oriRe.FindString(string(ori))
+		newContent := fmt.Sprintf("%s\nclass %s", property, m.Name)
+		if findString != "" {
+			newContent = strings.ReplaceAll(newContent, "*/", findString)
+		}
+		dest := strings.ReplaceAll(string(ori), re.FindString(string(ori)), newContent)
 		if dest != string(ori) {
 			_ = ioutil.WriteFile(filepath, []byte(dest), 0777)
 		}
